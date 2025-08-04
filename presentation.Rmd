@@ -1,0 +1,89 @@
+---
+title: "Minimal example of UC Berkeley Beamer Theme"
+author: "Zachary Lorico Hertz"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: 
+  beamer_presentation:
+    latex_engine: "xelatex"
+    includes:
+      in_header:
+        - beamerthemeUCBerkeley.sty
+urlcolor: BerkeleyGold
+bibliography: example.bib
+suppress-bibliography: true
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+library(gridExtra)
+library(modelsummary)
+le_dat <- read.csv("ledb_candidatelevel.csv")
+```
+
+```{r, include=FALSE}
+model <- lm(vote_share ~ incumbent + pid_est, data=le_dat)
+```
+
+# This is a quick and dirty Beamer Template
+- Beamer is often used by academics to virtue-signal their ability to use LaTeX
+- I like using Beamer in an .rmd file in this case because it makes it easy to produce slides in a working directory nested in my project folder
+- This lets me tweak figures in my slides using the R code, or read plots in from R code elsewhere in the directory, in a simple way.
+- Sometimes you need to do nested bullet points.
+    + You do this in a particular manner:
+        + Add a plus sign
+        + Then tab and voila. 
+
+# Using LaTeX in your slides
+
+Sometimes you need to use LaTeX in slides (e.g. to present your model). For example:
+
+\begin{align*}
+\text{Vote Share}_{i} = \beta_0 &+ \beta_1 \times \text{Incumbent}_{i} + \epsilon_{i}
+\end{align*}
+
+# Sometimes, to make your point...
+
+>- It becomes necessary to progress through bullets one at a time.
+>- To do this, just add a $>$ to the front of your bullet points.
+>   + This also works with sub bullets!
+>   + As so.
+
+# This is also powerful because
+- It works with citations and can read those in with your usual .bib keys.
+- This point is made by previous citations [@hertz2023].
+- Note that in its current form, I am suppressing the Works Cited at the end. You can modify this by changing `suppress-bibliography: true` in the YAML.
+
+# Presenting regression results
+```{r, echo=FALSE}
+modelsummary(model,
+             stars = c('*' = .05, '**' = .01, '***' = 0.001),
+             title= "Example Regression Model",
+             gof_map = c("nobs", "r.squared", "rmse", "F"),
+             coef_rename = c("incumbent" = "Incumbency",
+                             "pid_estR" = "Republican"),
+             output="markdown")
+```
+
+
+# Results: Plotting in Beamer
+```{r, echo=FALSE, warning=FALSE}
+le_dat %>% 
+  filter(!is.na(incumbent)) %>% 
+  ggplot(aes(x=vote_share, color=as.factor(incumbent))) +
+  geom_density() +
+  theme_minimal()
+```
+
+# Thank you!
+
+\begin{center}
+Zachary Lorico Hertz
+\linebreak
+\href{https://twitter.com/zacharylhertz}{$@$zacharylhertz} 
+\linebreak
+\href{mailto:zachary_hertz@berkeley.edu}{zachary\_hertz$@$berkeley.edu} 
+\end{center}

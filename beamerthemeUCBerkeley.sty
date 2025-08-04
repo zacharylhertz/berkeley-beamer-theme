@@ -1,0 +1,93 @@
+% beamerthemeUCBerkeley.sty v1.2 (January 5, 2021)
+% by Overleaf (LianTze Lim, Ryan Looney)
+% Modified slightly for custom use by Zachary Lorico Hertz
+% Last edited 4 August 2025
+\ProvidesPackage{beamerthemeUCBerkeley}
+
+\RequirePackage{silence}
+\WarningsOff[mathdesign/mdbch]
+
+\RequirePackage{etoolbox}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}[numbered]
+
+% \RequirePackage[T1]{fontenc}
+% \RequirePackage[charter,expert]{mathdesign}
+% \RequirePackage[scaled=.96,oldstyle]{XCharter}
+% \RequirePackage[default,scale=0.96,osfigures]{opensans}
+\RequirePackage{fontspec}
+\setromanfont{Georgia}
+\setsansfont[Scale=MatchLowercase]{Open Sans}
+
+\RequirePackage{tikz}
+\usepackage[table]{xcolor}
+
+\definecolor{BerkeleyGold}{RGB}{193,129,45}
+\definecolor{Medalist}{HTML}{C4820E}
+\definecolor{BerkeleyBlueText}{RGB}{48,99,126}
+\definecolor{FoundersRock}{HTML}{3B7EA1}
+\definecolor{BerkeleyTableGold}{RGB}{222,157,46}
+\definecolor{CaliforniaGold}{HTML}{FDB515}
+\definecolor{BerkeleyTableBlue1}{RGB}{207,226,234}
+\definecolor{BerkeleyTableBlue2}{RGB}{232,241,245}
+\definecolor{BerkeleyBlue}{HTML}{003262}
+
+\setbeamertemplate{title page}[default][left]
+\setbeamerfont{title}{family=\rmfamily,size=\Huge}
+\setbeamerfont{author}{size=\Large}
+
+\setbeamersize{text margin left=2em, text margin right=2em}
+
+\setbeamertemplate{frametitle}{\vskip0.05\paperheight\insertframetitle} 
+\setbeamerfont{frametitle}{family=\rmfamily,series=\mdseries,size=\LARGE}
+\setbeamerfont{block title}{family=\rmfamily,size=\large}
+\setbeamercolor{titlelike}{fg=Medalist}
+\setbeamercolor{normal text}{fg=BerkeleyBlue}
+\setbeamercolor{structure}{fg=BerkeleyBlue}
+\setbeamercolor{block title}{fg=Medalist}
+
+\setbeamertemplate{itemize item}{\textbullet}
+\setbeamertemplate{itemize subitem}{--}
+\setbeamertemplate{itemize subsubitem}{\textbullet}
+\setlength{\leftmargini}{1.25em}
+\setlength{\leftmarginii}{1em}
+\setlength{\leftmarginiii}{1em}
+
+% \pgfdeclareimage[width=1.01\paperwidth]{blueslope}{blueslope}
+\pgfdeclareimage[height=0.057\paperheight]{logo}{UCBerkeley_wordmark_white}
+% This part (above) changes the size of the logo
+\setbeamertemplate{background}{%
+\begin{tikzpicture}[overlay,remember picture]
+  \fill[BerkeleyBlue] (current page.south west) -- +(0, 0.10\paperheight) -- +(\paperwidth, 0.08\paperheight) -- (current page.south east) -- cycle;  
+% This part (above) changes the height of the blue border
+% \node[anchor=south west,inner sep=0pt,draw=none,yshift=-6pt,xshift=-1pt] at (current page.south west) {\pgfuseimage{blueslope}};%
+% This part (below) changes the image placement
+\node[anchor=south west,inner sep=0pt,draw=none,xshift=0.055\paperheight,yshift=0.02\paperheight] at (current page.south west) {\pgfuseimage{logo}};%
+\end{tikzpicture}%
+}
+
+\setbeamertemplate{footline}{%
+\vskip0.15\paperheight
+}
+
+\newcommand{\smallframetitle}{%
+  \setbeamertemplate{frametitle}{\vskip0.15\paperheight\insertframetitle}
+  \setbeamerfont{frametitle}{size=\large,series=\bfseries}
+}
+\newcommand{\normalframetitle}{%
+  \setbeamertemplate{frametitle}{\vskip0.2\paperheight\insertframetitle} 
+  \setbeamerfont{frametitle}{size=\LARGE,series=\mdseries}
+}
+
+\renewcommand{\arraystretch}{1.2}
+\newcommand{\tableheadrow}{\rowcolor{BerkeleyTableGold}}
+\newcommand{\tableheadcol}[1]{{\bfseries\color{white}#1}}
+
+% Define commands to enable/disable row colors
+\newcommand{\berkeleytablecolors}{\rowcolors{2}{BerkeleyTableBlue1}{BerkeleyTableBlue2}}
+\newcommand{\notablecolors}{\rowcolors{1}{}{}}
+
+% By default, no row colors (you can enable them when needed)
+\notablecolors
+
+\AtBeginEnvironment{tabular}{\color{black}}
