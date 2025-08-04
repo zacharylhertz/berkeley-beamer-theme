@@ -58,6 +58,7 @@ Sometimes you need to use LaTeX in slides (e.g. to present your model). For exam
 - Note that in its current form, I am suppressing the Works Cited at the end. You can modify this by changing `suppress-bibliography: true` in the YAML.
 
 # Presenting regression results
+\small
 ```{r, echo=FALSE}
 modelsummary(model,
              stars = c('*' = .05, '**' = .01, '***' = 0.001),
@@ -70,7 +71,8 @@ modelsummary(model,
 
 
 # Results: Plotting in Beamer
-```{r, echo=FALSE, warning=FALSE}
+
+```{r, echo=FALSE, warning=FALSE, out.height="80%"}
 le_dat %>% 
   filter(!is.na(incumbent)) %>% 
   ggplot(aes(x=vote_share, color=as.factor(incumbent))) +
